@@ -7,7 +7,14 @@ public class InternetServiceProvider
         char selectPackage;
         String input;
         double totalCharge = 0.0;
-        double hours;
+        double hours, tempCharge , totalSave;
+
+        final double PACK_A = 9.95;
+        final double PACK_B = 13.95;
+        final double PACK_C = 19.95;
+        final double PACK_A_HRS = 10.0;
+        final double PACK_B_HRS = 20.0;
+
 
         // create the Scanner Object
         Scanner keyboard = new Scanner(System.in);
@@ -31,22 +38,53 @@ public class InternetServiceProvider
             switch (selectPackage)
             {
                 case 'A':
-                    totalCharge = 9.95;
-                    if (hours > 10.0)
-                        totalCharge += (hours - 10.0) * 2.0;
+                    totalCharge = PACK_A;
+                    if (hours > PACK_A_HRS)
+                        totalCharge += (hours - PACK_A_HRS) * 2.0;
                     break;
                 case 'B':
-                    totalCharge = 13.95;
-                    if (hours > 20.0)
-                        totalCharge += (hours - 20);
+                    totalCharge = PACK_B;
+                    if (hours > PACK_B_HRS)
+                        totalCharge += (hours - PACK_B_HRS);
                     break;
                 case 'C':
-                    totalCharge = 19.95;
+                    totalCharge = PACK_C;
             }
-        // Display the result
+            // Display the result
             System.out.println("\n--------------------------------------");
-            System.out.printf("The total charge is $%.2f.", totalCharge);
+            System.out.printf("The total charge for the current package is $%.2f.", totalCharge);
             System.out.println("\n--------------------------------------\n");
+
+            // Calculate and Display the Savings
+            switch (selectPackage)
+            {
+                case 'A':
+                    tempCharge = PACK_B;
+                    if (hours > PACK_B_HRS)
+                    {
+                        tempCharge += (hours-PACK_B_HRS);
+                    }
+                    // Calculate Saving
+                    totalSave = totalCharge - tempCharge;
+
+                    // Display the saving charge if the customer select package B
+                    System.out.println("\n--------------------------------------");
+                    System.out.printf("The total saving if you select package B is $%.2f.", totalSave);
+                    System.out.println("\n--------------------------------------\n");
+
+                case 'B':
+                    tempCharge = PACK_C;
+                    tempCharge += (hours-PACK_C);
+                    // Calculate Saving
+                    totalSave = totalCharge - tempCharge;
+
+                    // Display the saving charge if the customer select package C
+                    System.out.println("\n--------------------------------------");
+                    System.out.printf("The total saving if you select package C is $%.2f.", totalSave);
+                    System.out.println("\n--------------------------------------\n");
+            }
+
+
         }
 
     }
